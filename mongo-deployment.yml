@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  #minReadySeconds: 15
+  selector:
+    matchLabels:
+      app: mongo
+  replicas: 1
+  template: #template for pods
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: mongo:3.6.17-xenial
+        volumeMounts:
+          - name: mongo-persistent-storage
+            mountPath: /data/db
+      volumes:
+      - name: mongo-persistent-storage
+        persistentVolumeClaim:
+          claimName: mongo-pvc
+        # hostPath:
+        #   path: /usr/local/proad/kubernetes-microservices/
+        #   type: DirectoryOrCreate
