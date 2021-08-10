@@ -1,0 +1,23 @@
+##deletee minikube if any
+Minikube delete
+rm -rf ~/.minikube
+
+## Start Minikube
+minikube start --vm-driver=virtualbox
+
+##configure minikube with docker
+eval $(minikube docker-env)
+
+
+##kubectl contexts
+kubectl config use-context minikube
+kubectl config use-context docker-for-desktop
+
+#
+## rollout
+kubectl rollout history deploy {name of deployment}
+
+## rollback
+kubectl rollout undo deploy webapp --to-revision=1
+
+
